@@ -83,7 +83,7 @@ function Portfolio() {
      * Stocks included in the portfolio.
      *
      * @property stocks
-     * @type Array
+     * @type Object
      */
     this.stocks = {};
 
@@ -169,11 +169,11 @@ Portfolio.prototype = {
     },
 
     /**
-     * Get the tickeres for all stocks in the portfolio.
+     * Get the tickers for all stocks in the portfolio.
      *
      * @return {Array} List of tickers of stocks in the portfolio.
      */
-    getStockNames: function() {
+    getStockTickers: function() {
         return Object.keys(this.stocks);
     },
 

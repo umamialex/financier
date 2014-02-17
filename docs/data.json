@@ -115,7 +115,7 @@
             "description": "Stocks included in the portfolio.",
             "itemtype": "property",
             "name": "stocks",
-            "type": "Array",
+            "type": "Object",
             "class": "Portfolio"
         },
         {
@@ -202,7 +202,7 @@
         {
             "file": "risk.js",
             "line": 171,
-            "description": "Get the tickeres for all stocks in the portfolio.",
+            "description": "Get the tickers for all stocks in the portfolio.",
             "return": {
                 "description": "List of tickers of stocks in the portfolio.",
                 "type": "Array"
@@ -317,7 +317,7 @@
             "line": " risk.js:157"
         },
         {
-            "message": "Missing item type\nGet the tickeres for all stocks in the portfolio.",
+            "message": "Missing item type\nGet the tickers for all stocks in the portfolio.",
             "line": " risk.js:171"
         },
         {
