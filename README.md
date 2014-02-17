@@ -12,10 +12,69 @@ was built to calculate the risk in the Bridge Jump Portfolio Management game.
 
 `$ npm install financier`
 
+Financier uses the [Sylvester matrix math library](https://github.com/NaturalNode/node-sylvester)
+for calculations.  NPM will automatically install Sylvester as a dependency.
+
 ```js
 var financier = require('financier');
 var Stock = financier.Stock;
 var Portfolio = financier.Portfolio;
+```
+
+## Usage
+Here is an example featuring comprehensive usage of financier.
+
+```js
+// Load financier.
+var financier = require('financier');
+var Stock = financier.Stock;
+var Portfolio = financier.Portfolio;
+
+var stocks = {};
+// A bit of pseudo-code to load return data from a CSV.
+var stockData = CSV.load('nasdaq-historical-returns.csv');
+
+// Initialize the stocks.
+for (var stock in stockData) {
+    stocks[stock] = new Stock(stock);
+    for (var tick in stockData[stock]) {
+        stocks[stock].push(tick.open, tick.close, true);
+    }
+    stocks[stock].calculateAverage();
+}
+
+// Gather the securities for the portfolio.
+var securities = [
+    {
+        stock: stocks.AAPL,
+        value: 10234.34
+    },
+    {
+        stock: stocks.GOOG,
+        value: 63464.53
+    },
+    {
+        stock: stocks.MSFT,
+        value: 4352.2
+    },
+    {
+        stock: stocks.AIG,
+        value: 630.99,
+    }, {
+        stock: stocks.C,
+        value: 902.11
+    }
+];
+
+// Build the portfolio.
+var clientPortfolio = new Portfolio();
+for (var i = 0; i < securities.length; i++) {
+    var security = securities[i];
+    clientPortfolio.addStock(security.stock, security.value, true);
+}
+
+// Spit out the risk.
+console.log(clientPortfolio.calculateRisk());
 ```
 
 ## API
@@ -33,6 +92,10 @@ var AAPL = new Stock('AAPL');
 * __ticker__ - `String` The stock symbol.
 * __returns__ - `Array` The array of tick returns for the stock.
 * __average__ - `Float` The average of all the tick returns.
+* __value__ - `Float` The market value of the stock. (Initialized when added to a
+portfolio.)
+* __weight__ - `Float` The weight of the stock in comparison to the total portfolio
+market value.  (Initialized when added to a portfolio.)
 
 #### Stock.push(_Float_ open, _Float_ close, _Boolean_ _[Opt]_ wait)
 Add a tick of data to the stock history.  This new return is stored in
@@ -86,8 +149,7 @@ var clientPortfolio = new Portfolio();
 
 #### Portfolio.addStock(_Stock_ stock, _Float_ value, _Boolean_ _[Opt]_ clone)
 Add a stock to the portfolio.  This stock is stored in the `Portfolio.stocks`.
-Relative weights for the entire portfolio are automagically
-recalculated.
+`Stock.weight` for all securities are automagically recalculated.
 
 The parameter `stock` is the `Stock` object being added.  `value` represents the
 market value for the security as a `float`.  Currency should be kept consistent.
@@ -114,7 +176,7 @@ otherClientPortfolio.stocks.AAPL.push(open, close);
 
 #### Portfolio.removeStock(_Stock|String_ stock)
 Remove a stock from the portfolio.  `Portfolio.stocks` is updated.  Additionally,
-weights for all stocks are recalculated.
+`Stock.weight` for all stocks are recalculated.
 
 ```js
 // Both of these are valid:
@@ -134,14 +196,13 @@ Get the tickers for all the stocks in the portfolio.
 Checks if the stock is currently in the portfolio.
 
 #### _Float_ Portfolio.calculateTotalValue()
-Calculate the total market value of the portfolio.  The portfolio property `value`
-is updated, as well as returned.  This function is called everytime
-`Portfolio.calculateWeights()` is called.
+Calculate the total market value of the portfolio.  `Portfolio.value` is updated, as
+well as returned.  This function is called everytime `Portfolio.calculateWeights()`
+is called.
 
 #### Portfolio.calculateWeights()
-Calculate weights of all securities in the portfolio.  Each `Stock` in `Portfolio.stocks`
-is updated with its new `weight`.  This function is called whenever a securities in the
-portfolio are altered.
+Calculate and update `Stock.weight` for all securities in the portfolio.  This
+function is called whenever a securities in the portfolio are altered.
 
 #### _Float_ Portfolio.calculateCovariance(_Stock_ stockA, _Stock_ stockB)
 Calculate the coveriance between two stocks.  If `stockA` and `stockB` are the same
