@@ -1,6 +1,6 @@
 {
   "name": "financier",
-  "version": "0.1.3",
+  "version": "1.0.0",
   "description": "A Node.js module that helps with calculations concerning stocks and portfolios.",
   "main": "financier.js",
   "scripts": {
