@@ -4,7 +4,7 @@
   "description": "A Node.js module that helps with calculations concerning stocks and portfolios.",
   "main": "financier.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "tap ./tests/*.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +26,8 @@
   "homepage": "https://github.com/suitupalex/financier",
   "dependencies": {
     "sylvester": "^0.0.21"
+  },
+  "devDependencies": {
+    "tap": "^2.2.0"
   }
 }

@@ -1,5 +1,9 @@
-Financier
+financier
 =========
+
+[![Build Status](https://api.travis-ci.org/suitupalex/financier.svg)](https://travis-ci.org/suitupalex/financier)
+[![npm version](https://badge.fury.io/js/financier.svg)](https://badge.fury.io/js/financier)
+[![Dependencies](https://david-dm.org/suitupalex/financier.svg)](https://david-dm.org/suitupalex/financier)
 
 A Node.js module that helps with calculations concerning stocks and portfolios.
 
@@ -7,9 +11,6 @@ A Node.js module that helps with calculations concerning stocks and portfolios.
 
 Financier is a simple, object-oriented way of managing a portfolio.
 Please feel free to request any features.  Code contributions are always welcome!
-
-## Mirrors
-[Bitbucket](https://bitbucket.org/suitupalex/financier) | [Github](https://github.com/suitupalex/financier)
 
 ## Installation
 
