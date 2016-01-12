@@ -28,6 +28,6 @@
     "sylvester": "^0.0.21"
   },
   "devDependencies": {
-    "tap": "^2.2.0"
+    "tap": "^5.0.1"
   }
 }
